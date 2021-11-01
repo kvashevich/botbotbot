@@ -1,5 +1,5 @@
-import os
-from dotenv import load_dotenv
+# import os
+# from dotenv import load_dotenv
 import requests
 import datetime
 from aiogram import Bot, types
@@ -9,9 +9,13 @@ from aiogram.types import ReplyKeyboardRemove, \
     ReplyKeyboardMarkup, KeyboardButton, \
     InlineKeyboardMarkup, InlineKeyboardButton
 
-load_dotenv()
+TOKEN = '2077175119:AAF5qyrbVNSm_v2g5ih-axKpmGpNFE4PWzA'
+TOKEN_WEATHER = 'c1fa373aaab118436400f7b422df251f'
+
+# load_dotenv()
+
 # OBJECT OF CLASS
-bot = Bot(token=os.getenv("TOKEN"))
+bot = Bot(token=TOKEN)
 dp = Dispatcher(bot)
 
 # BUTTONS
@@ -29,11 +33,10 @@ world_for_buttons2.add(single_button_2, single_button_3)
 # FUNCTION
 
 
-
-
 @dp.message_handler(commands='start')
 async def start_command(message: types.Message):
     await bot.send_message(message.from_user.id, "Hi, i'm bot..", reply_markup=world_for_buttons1)
+
 
 #
 # @dp.message_handler()
@@ -52,7 +55,7 @@ async def get_weather(message: types.Message):
                           }
     try:
         r = requests.get(
-            f'http://api.openweathermap.org/data/2.5/weather?q={message.text}&appid={os.getenv("TOKEN_WEATHER")}&units=metric')
+            f'http://api.openweathermap.org/data/2.5/weather?q={message.text}&appid={TOKEN_WEATHER}&units=metric')
         data = r.json()
 
         city = data['name']
